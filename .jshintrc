@@ -1,4 +1,5 @@
 {
+  "Firebase": false,
   "app": false,
   "node": true,
   "browser": true,
