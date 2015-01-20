@@ -1,45 +1,17 @@
-<nav class="navbar navbar-default" role="navigation">
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="#">Slacker News</a>
-  </div>
-
-  <!-- Collect the nav links, forms, and other content for toggling -->
-  <div ng-controller="NavCtrl" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <form class="navbar-form navbar-left" role="search" ng-submit="submitPost()">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Title" ng-model="post.title">
-      </div>
-      <div class="form-group">
-      <input type="text" class="form-control" placeholder="Link" ng-model="post.url">
-      </div>
-      <button type="submit" class="btn btn-default">Submit</button>
-    </form>
-    <ul class="nav navbar-nav navbar-right" >
-      <li ng-show="signedIn()">
-        <p class="navbar-text">{{ user.profile.username }}</p>
-      </li>
-      <li ng-show="signedIn()">
-        <a ng-href="#/users/{{ user.profile.uid }}">
-          <img ng-src="http://www.gravatar.com/avatar/{{ user.profile.md5_hash }}" class="nav-pic" />
-          {{ currentUser.username }}
-        </a>
-      </li>
-      <li ng-show="signedIn()">
-        <a href="#" ng-click="logout()">Logout</a>
-      </li>
-      <li ng-hide="signedIn()">
-        <a href="#/login">Login</a>
-      </li>
-      <li ng-hide="signedIn()">
-        <a href="#/register">Register</a>
-      </li>
-    </ul>
-  </div><!-- /.navbar-collapse -->
-</nav>
+<td bgcolor="#ff6600">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
+    <tbody>
+      <tr>
+        <td style="width:18px;padding-right:4px">
+          <a href="http://www.ycombinator.com">
+            <img src="https://news.ycombinator.com/y18.gif" width="18" height="18" style="border:1px #ffffff solid;">
+          </a>
+        </td>
+        <td style="line-height:12pt; height:10px;"><span class="pagetop"><b><a href="news">Slacker News</a></b><img src="https://news.ycombinator.com/s.gif" height="1" width="10"><a href="newest">new</a> | <a href="newcomments">comments</a> | <a href="show">show</a> | <a href="ask">ask</a> | <a href="jobs">jobs</a> | <a href="submit">submit</a></span>
+        </td>
+        <td style="text-align:right;padding-right:4px;"><span class="pagetop"><a href="login?whence=%6e%65%77%73">login</a></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</td>
