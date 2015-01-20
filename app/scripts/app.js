@@ -57,4 +57,4 @@ var app = angular
         redirectTo: '/'
       });
   })
-  .constant('FIREBASE_URL', 'https://blistering-torch-4094.firebaseio.com/');
+  .constant('FIREBASE_URL', 'https://slacker-news.firebaseio.com/');
