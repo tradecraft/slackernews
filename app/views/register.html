@@ -1,13 +1,37 @@
-<div class="auth-forms">
-
-  <h2>Register</h2>
-
+<td>
   <form ng-submit="register()">
-    <p ng-show="error" class="text-danger">{{ error }}</p>
-    <input type="text" ng-model="user.username" placeholder="Username" class="form-control"><br>
-    <input type="email" ng-model="user.email" placeholder="Email" class="form-control"><br>
-    <input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>
-    <input type="submit" value="Register" class="btn btn-primary" />
+    <table border="0">
+      <tbody>
+        <tr ng-show="error" class="text-danger">{{ error }}</tr>
+        <tr>
+          <td>username</td>
+          <td>
+            <input ng-model="user.username" type="text" name="t" value="" size="20" placeholder="" style="">
+          </td>
+        </tr>
+        <tr>
+          <td>email</td>
+          <td>
+            <input ng-model="user.email" type="email" name="t" value="" size="20" placeholder="" style="">
+          </td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td>
+            <input ng-model="user.password" type="password" name="u" value="" size="20">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="submit" value="register">
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </form>
-
-</div>
+</td>

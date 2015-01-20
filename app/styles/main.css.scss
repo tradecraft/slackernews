@@ -1,3 +1,14 @@
+table {
+  white-space: normal;
+  line-height: normal;
+  font-weight: normal;
+  font-size: medium;
+  font-variant: normal;
+  font-style: normal;
+  color: -webkit-text;
+  text-align: start;
+}
+
 body  { font-family:Verdana, Geneva, sans-serif; font-size:10pt; color:#828282; }
 td    { font-family:Verdana, Geneva, sans-serif; font-size:10pt; color:#828282; }
 
@@ -75,3 +86,7 @@ td.mtrunc210 { max-width:210px; overflow:hidden; white-space:nowrap; text-overfl
 .mcifs { color:#a16245; }
 .mclst { font-size:8pt; margin-left:5px; }
 .mstrike { text-decoration:line-through; }
+
+form {
+  margin-bottom: 1em;
+}

@@ -11,13 +11,18 @@
             </a><span id="down_8914956"></span>
           </center>
         </td>
-        <td class="title"><span class="deadmark"></span><a href="{{ post.url }}">{{ post.title }}</a>
-          <span class="sitebit comhead"> ({{ post.url | hostnameFromUrl }})</span>
+        <td class="title">
+          <span class="deadmark"></span>
+          <a href="{{ post.url }}">{{ post.title }}</a>
+          <span class="sitebit comhead">({{ post.url | hostnameFromUrl }})</span>
         </td>
       </tr>
       <tr>
         <td colspan="2"></td>
-        <td class="subtext"><span class="score" id="score_8914956">64 points</span> by <a href="user?id=Kopion">Kopion</a> 42 minutes ago | <a href="item?id=8914956">16 comments</a>
+        <td class="subtext">
+          <span class="score" id="score_8914956">64 points</span> by
+          <a href="#/users/{{ post.creatorUID }}">{{ post.creator }}</a> 42 minutes ago |
+          <a href="#/posts/{{ post.$id }}">16 comments</a>
         </td>
       </tr>
       <tr style="height:5px"></tr>

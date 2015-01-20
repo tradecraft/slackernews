@@ -1,56 +1,85 @@
-<div class="container posts-page">
-
-  <div class="post row">
-    <div class="col-xs-1">
-    </div>
-    <div class="col-md-9 col-xs-11">
-      <div class="info">
-        <a ng-href="{{ post.url }}">
-          {{ post.title }}
-          <span class="url">({{ post.url | hostnameFromUrl }})</span>
-        </a>
-      </div>
-      <div>
-        <span>
-          submitted by
-          <a ng-href="#/users/{{ post.creatorUID }}">
-            {{ post.creator }}
-          </a>
-        </span>
-      </div>
-    </div>
-    <div class="col-md-2">
-    </div>
-  </div>
-  
-  <div ng-repeat="comment in comments" class="row cmt">
-    <div class="col-md-12">
-      <p>{{ comment.text }}</p>
-      <p class="author">posted by
-        <a ng-href="#/users/{{ comment.creatorUID }}">
-          {{ comment.creator }}
-        </a>
-        <a ng-href=""
-        ng-click="deleteComment(comment)"
-        ng-show="signedIn() && comment.creatorUID === user.uid">
-        (delete)
-        </a>
-      </p>
-    </div>
-  </div>
-
-  <div class="cmt-form">
-    <div ng-hide="signedIn()">
-      <p><a href="#/login">Sign in</a> to post a comment</p>
-    </div>
-
-    <form ng-show="signedIn()" ng-submit="addComment()">
-      <textarea
-      ng-model="commentText"
-      placeholder="Post a Comment"
-      class="form-control"></textarea><br />
-      <input type="submit" value="Post Comment" class="btn btn-primary" />
-    </form>
-  </div>
-
-</div>
+<td>
+  <table border="0">
+    <tbody>
+      <tr>
+        <td>
+          <center>
+            <a id="up_8920007" onclick="return vote(this)" href="vote?for=8920007&amp;dir=up&amp;by=tradecraft&amp;auth=ec7f6619603cfa2156208fd64838cb40dd3aa53c&amp;whence=%69%74%65%6d%3f%69%64%3d%38%39%32%30%30%30%37">
+              <div class="votearrow" title="upvote"></div>
+            </a><span id="down_8920007"></span>
+          </center>
+        </td>
+        <td class="title"><span class="deadmark"></span>
+          <a href="{{ post.url }}" rel="nofollow">{{ post.title }}</a>
+          <span class="sitebit comhead"> ({{ post.url | hostnameFromUrl }})</span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"></td>
+        <td class="subtext"><span class="score" id="score_8920007">2 points</span> by <a href="#/users/{{ post.creatorUID }}">{{ post.creator }}</a> 41 minutes ago | <a href="#/posts/{{ post.$id }}">discuss</a>
+        </td>
+      </tr>
+      <tr style="height:10px"></tr>
+      <tr>
+        <td></td>
+        <td>
+          <form ng-show="signedIn()" ng-submit="addComment()">
+            <textarea ng-model="commentText" name="text" rows="6" cols="60" style="" placeholder=""></textarea>
+            <br>
+            <br>
+            <span class="subtext">If you haven't already, would you mind reading about SN's
+              <a href="#/welcome">
+                <u>approach to comments</u>
+              </a>?
+            </span>
+            <br>
+            <br>
+            <input type="submit" value="add comment">
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <table border="0">
+    <tbody ng-repeat="comment in comments">
+      <tr>
+        <td>
+          <table border="0">
+            <tbody>
+              <tr>
+                <td>
+                  <img src="https://news.ycombinator.com/s.gif" height="1" width="0">
+                </td>
+                <td valign="top">
+                  <center>
+                    <a id="up_8920048" onclick="return vote(this)" href="vote?for=8920048&amp;dir=up&amp;by=tradecraft&amp;auth=1a00cdc3f15a311c27bb30773c74e78df5e2fdd1&amp;whence=%69%74%65%6d%3f%69%64%3d%38%39%32%30%30%30%37">
+                      <div class="votearrow" title="upvote"></div>
+                    </a>
+                    <span id="down_8920048"></span>
+                  </center>
+                </td>
+                <td class="default">
+                  <div style="margin-top:2px; margin-bottom:-10px; ">
+                    <span class="comhead">
+                      <a href="#/users/{{ post.creatorUID }}">{{ comment.creator }}</a> 33 minutes ago  |
+                      <a href="">link</a>
+                      <span class="deadmark"></span>
+                    </span>
+                  </div>
+                  <br>
+                  <span class="comment">{{ comment.text }}</span>
+                  <p><font size="1"><u><a href="#">reply</a></u></font>
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+</td>

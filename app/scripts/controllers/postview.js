@@ -1,24 +1,24 @@
 'use strict';
 
 app.controller('PostViewCtrl', function ($scope, $routeParams, Post, Auth) {
-  $scope.post = Post.get($routeParams.postId);
+  $scope.post     = Post.get($routeParams.postId);
   $scope.comments = Post.comments($routeParams.postId);
-
-  $scope.user = Auth.user;
+  $scope.user     = Auth.user;
   $scope.signedIn = Auth.signedIn;
 
   $scope.addComment = function () {
-    if(!$scope.commentText || $scope.commentText === '') {
+    if (!$scope.commentText || $scope.commentText === '') {
+      console.log($scope.commentText);
       return;
     }
 
     var comment = {
-      text: $scope.commentText,
-      creator: $scope.user.profile.username,
-      creatorUID: $scope.user.uid
+      text       : $scope.commentText,
+      creator    : $scope.user.profile.username,
+      creatorUID : $scope.user.uid
     };
-    $scope.comments.$add(comment);
 
+    $scope.comments.$add(comment);
     $scope.commentText = '';
   };
 
