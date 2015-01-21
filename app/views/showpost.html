@@ -16,7 +16,10 @@
       </tr>
       <tr>
         <td colspan="1"></td>
-        <td class="subtext"><span class="score" id="score_8920007">2 points</span> by <a href="#/users/{{ post.creatorUID }}">{{ post.creator }}</a> 41 minutes ago | <a href="#/posts/{{ post.$id }}">discuss</a>
+        <td class="subtext">
+          <span class="score" id="score_8920007">{{ post.score }} points</span> by
+          <a href="#/users/{{ post.creatorUID }}">{{ post.creator }}</a> 41 minutes ago |
+          <a href="#/posts/{{ post.$id }}">{{ post.nComments }} comments</a>
         </td>
       </tr>
       <tr style="height:10px"></tr>
@@ -65,6 +68,9 @@
                     <span class="comhead">
                       <a href="#/users/{{ post.creatorUID }}">{{ comment.creator }}</a> 33 minutes ago  |
                       <a href="">link</a>
+                      <span ng-show="user.uid == post.creatorUID">
+                        | <a ng-click="deleteComment(comment)" style="cursor: pointer;">delete</a>
+                      </span>
                       <span class="deadmark"></span>
                     </span>
                   </div>

@@ -29,9 +29,9 @@
       <tr>
         <td colspan="2"></td>
         <td class="subtext">
-          <span class="score" id="score_8914956">64 points</span> by
+          <span class="score" id="score_8914956">{{ post.score }} points</span> by
           <a href="#/users/{{ post.creatorUID }}">{{ post.creator }}</a> 42 minutes ago |
-          <a href="#/posts/{{ post.$id }}">discuss</a>
+          <a href="#/posts/{{ post.$id }}">{{ post.nComments }} comments</a>
         </td>
       </tr>
       <tr style="height:5px"></tr>

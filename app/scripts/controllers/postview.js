@@ -8,7 +8,6 @@ app.controller('PostViewCtrl', function ($scope, $routeParams, Post, Auth) {
 
   $scope.addComment = function () {
     if (!$scope.commentText || $scope.commentText === '') {
-      console.log($scope.commentText);
       return;
     }
 
@@ -20,9 +19,11 @@ app.controller('PostViewCtrl', function ($scope, $routeParams, Post, Auth) {
 
     $scope.comments.$add(comment);
     $scope.commentText = '';
+    $scope.post.nComments += 1;
   };
 
   $scope.deleteComment = function (comment) {
     $scope.comments.$remove(comment);
+    $scope.post.nComments -= 1;
   };
 });

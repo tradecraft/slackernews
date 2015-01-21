@@ -7,5 +7,5 @@ app.controller('PostsCtrl', function ($scope, $location, Auth, Post) {
 
   $scope.deletePost = function (post) {
     Post.delete(post);
-  };
+  }
 });
