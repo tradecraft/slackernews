@@ -8,7 +8,6 @@ app.controller('SubmitCtrl', function ($scope, $location, Auth, Post) {
     $scope.post.creator    = $scope.user.profile.username;
     $scope.post.creatorUID = $scope.user.uid;
     $scope.post.score      = 1;
-    $scope.post.nComments  = 0;
 
     Post.create($scope.post).then(function (ref) {
       $location.path('/posts/' + ref.name());

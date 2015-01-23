@@ -1,14 +1,15 @@
 <td>
   <table border="0" cellpadding="0" cellspacing="0">
-    <tbody class="post row" ng-repeat="post in posts">
+    <tbody class="post row" ng-repeat="post in posts | filter:query">
       <tr>
         <td style="float: right;" align="right" valign="top" class="title"><span class="rank">{{ $index + 1 }}.</span>
         </td>
         <td>
           <center>
-            <a id="up_8914956" href="vote?for=8914956&amp;dir=up&amp;whence=%6e%65%77%73">
+            <a>
               <div class="votearrow" title="upvote"></div>
-            </a><span id="down_8914956"></span>
+            </a>
+            <span id="down_8914956"></span>
           </center>
         </td>
         <td class="title">
@@ -21,8 +22,8 @@
         <td colspan="2"></td>
         <td class="subtext">
           <span class="score" id="score_8914956">{{ post.score }} points</span> by
-          <a href="#/users/{{ post.creatorUID }}">{{ post.creator }}</a> 42 minutes ago |
-          <a href="#/posts/{{ post.$id }}">{{ post.nComments }} comments</a>
+          <a href="#/users/{{ post.creatorUID }}">{{ post.creator }}</a> 5 minutes ago |
+          <a href="#/posts/{{ post.$id }}">discuss</a>
           <span ng-show="user.uid == post.creatorUID">
           | <a ng-click="deletePost(post)" style="cursor: pointer;">delete</a>
           </span>

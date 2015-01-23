@@ -1,12 +1,23 @@
 'use strict';
 
-app.factory('Auth', function ($firebaseAuth, FIREBASE_URL, $firebase, $rootScope) {
+app.factory('Auth', function ($firebaseAuth, FIREBASE_URL, $firebase, $rootScope, $location) {
   var ref  = new Firebase(FIREBASE_URL);
   var auth = $firebaseAuth(ref);
+  $rootScope.authObj = auth;
 
   var Auth = {
     register: function (user) {
-      return auth.$createUser(user);
+      $rootScope.authObj.$createUser(user)
+        .then(function(userData) {
+        console.log("User " + userData.uid + " created successfully!");
+        Auth.createProfile(user);
+        console.log("User " + user.username + " profile created successfully!");
+        return $rootScope.authObj.$authWithPassword(user);
+      }).then(function(authData) {
+        console.log("Logged in as:", authData.uid);
+      }).catch(function(error) {
+        console.error("Error: ", error);
+      });
     },
 
     createProfile: function (user) {
@@ -16,11 +27,29 @@ app.factory('Auth', function ($firebaseAuth, FIREBASE_URL, $firebase, $rootScope
       };
 
       var profileRef = $firebase(ref.child('profile'));
-      return profileRef.$set(user.uid, profile);
+      return profileRef.$set(user.uid, user);
     },
 
     login: function (user) {
-      return auth.$authWithPassword(user);
+      $rootScope.authObj.$authWithPassword(user).then(function(authData) {
+        console.log("Logged in as:", authData.uid);
+      }).catch(function(error) {
+        console.error("Authentication failed:", error);
+      });
+    },
+
+    guestLogin: function () {
+      $rootScope.authObj.$authAnonymously().then(function(authData) {
+        console.log("Logged in as:", authData.uid);
+        Auth.createProfile({
+          username : "Guest",
+          email    : "guest@sn.com"
+        });
+        console.log("Guest profile sucessfully created!");
+        $location.path("/");
+      }).catch(function(error) {
+        console.error("Authentication failed:", error);
+      });
     },
 
     logout: function () {
@@ -35,18 +64,17 @@ app.factory('Auth', function ($firebaseAuth, FIREBASE_URL, $firebase, $rootScope
       return !!auth.$getAuth();
     },
 
-    user: auth.$getAuth()
+    getActiveUser: function () {
+      return auth.$getAuth();
+    }
   };
 
-  auth.$onAuth(function (authData) {
+  $rootScope.authObj.$onAuth(function(authData) {
     if (authData) {
-      console.log('Logged in as:', authData.uid);
-      console.log(authData);
-      Auth.user.profile = $firebase(ref.child('profile').child(Auth.user.uid)).$asObject();
-      console.log(Auth.user.profile);
+      console.log("Logged in as:", authData.uid);
     } else {
-      console.log('Logged out');
-      if (Auth.user && Auth.user.profile) {Auth.user.profile.$destroy();}
+      console.log("Logged out");
+      $location.path("/");
     }
   });
 

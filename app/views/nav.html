@@ -1,4 +1,4 @@
-<td bgcolor="#ff6600">
+<td ng-controller="NavCtrl" bgcolor="#ff6600">
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding: 2px;">
     <tbody>
       <tr>
@@ -13,20 +13,20 @@
               <a href="#/">Slacker News</a>
             </b>
             <img src="https://news.ycombinator.com/s.gif" height="1" width="10">
-            <a href="newest">new</a> |
-            <a href="newcomments">comments</a> |
-            <a href="show">show</a> |
-            <a href="ask">ask</a> |
-            <a href="jobs">jobs</a> |
-            <a href="#/submit">submit</a>
+            <a href="#newest">new</a> |
+            <a href="#newcomments">comments</a> |
+            <a href="#show">show</a> |
+            <a href="#ask">ask</a> |
+            <a href="#jobs">jobs</a>
+            <span ng-show="signedIn()">| <a href="#/submit">submit</a></span>
           </span>
         </td>
-        <td ng-controller="NavCtrl" style="text-align:right;padding-right:4px;">
+        <td style="text-align:right;padding-right:4px;">
           <span class="pagetop">
             <a ng-hide="signedIn()" href="#/login">login |</a>
             <a ng-hide="signedIn()" href="#/register">register</a>
-            <a ng-show="signedIn()" ng-href="#/users/{{ user.uid }}" style="color: #3c963c">{{ user.profile.username }}</a>
-            <a ng-show="signedIn()" ng-click="logout()" href="#">| logout</a>
+            <span ng-show="signedIn()" ><a ng-href="#/users/{{ user.uid }}" style="color: #3c963c">{{ username }}</a> | </span>
+            <a ng-show="signedIn()" ng-click="logout()" href="#">logout</a>
           </span>
         </td>
       </tr>

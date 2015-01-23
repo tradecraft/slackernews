@@ -1,5 +1,5 @@
 <td>
-  <form ng-submit="login()">
+  <form ng-submit="">
     <table border="0">
       <tbody>
         <tr ng-show="error" class="text-danger">{{ error }}</tr>
@@ -23,6 +23,11 @@
           <td></td>
           <td>
             <input type="submit" value="login">
+            <input type="submit" value="login as guest" ng-click="guestLogin()">
+          </td>
+        </tr>
+        <tr>
+          <td>
           </td>
         </tr>
       </tbody>
