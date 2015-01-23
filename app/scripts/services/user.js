@@ -1,12 +1,12 @@
 'use strict';
 
-app.factory('Profile', function ($scope, FIREBASE_URL, $firebase, Post, $q) {
-  var ref = new Firebase(FIREBASE_URL + "profile");
-  $scope.profiles = $firebase(ref);
+app.factory('User', function (FIREBASE_URL, $firebase, Post, $q) {
+  var ref = new Firebase(FIREBASE_URL);
+  var profiles = $firebase(ref.child('users')).$asArray();
 
   var profile = {
     get: function (userId) {
-      return $firebase(ref.child(userId)).$asObject();
+      return $firebase(ref.child('users').child(userId)).$asObject();
     },
 
     create: function (user) {
@@ -15,7 +15,9 @@ app.factory('Profile', function ($scope, FIREBASE_URL, $firebase, Post, $q) {
         email    : user.email
       };
 
-      $scope.profiles.$set(user.uid, profile);
+      profiles.$add(profile).then(function (ref) {
+        var id = user.uid;
+      });
     },
 
     getPosts: function (userId) {

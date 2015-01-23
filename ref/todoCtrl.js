@@ -1,99 +1,93 @@
-/*global todomvc, angular, Firebase */
+/*global todomvc, angular */
 'use strict';
 
 /**
 * The main controller for the app. The controller:
-* - retrieves and persists the model via the $firebase service
+* - retrieves and persists the model via the todoStorage service
 * - exposes the model to the template and provides event handlers
 */
-todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, $firebase) {
-  var url = 'https://todomvc-angular.firebaseio.com/';
-  var fireRef = new Firebase(url);
-
-  // Bind the todos to the firebase provider.
-  $scope.todos = $firebase(fireRef);
+todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, $filter, todoStorage) {
+  var todos = $scope.todos = todoStorage.get();
 
   $scope.newTodo = '';
+  $scope.remainingCount = $filter('filter')(todos, {completed: false}).length;
   $scope.editedTodo = null;
 
-  if ($location.path() === '') $location.path('/');
+  if ($location.path() === '') {
+    $location.path('/');
+  }
+
   $scope.location = $location;
 
-  $scope.$watch('todos', function () {
-    var total = 0;
-    var remaining = 0;
-    $scope.todos.$getIndex().forEach(function (index) {
-      var todo = $scope.todos[index];
-      // Skip invalid entries so they don't break the entire app.
-      if (!todo || !todo.title) {
-        return;
-      }
+  $scope.$watch('location.path()', function (path) {
+    $scope.statusFilter = { '/active': {completed: false}, '/completed': {completed: true} }[path];
+  });
 
-      total++;
-      if (todo.completed === false) {
-        remaining++;
-      }
-    });
-    $scope.totalCount = total;
-    $scope.remainingCount = remaining;
-    $scope.completedCount = total - remaining;
-    $scope.allChecked = remaining === 0;
-  }, true);
+  $scope.$watch('remainingCount == 0', function (val) {
+    $scope.allChecked = val;
+  });
 
   $scope.addTodo = function () {
     var newTodo = $scope.newTodo.trim();
-    if (!newTodo.length) {
+    if (newTodo.length === 0) {
       return;
     }
-    $scope.todos.$add({
+
+    todos.push({
       title: newTodo,
       completed: false
     });
+    todoStorage.put(todos);
+
     $scope.newTodo = '';
+    $scope.remainingCount++;
   };
 
-  $scope.editTodo = function (id) {
-    $scope.editedTodo = $scope.todos[id];
-    $scope.originalTodo = angular.extend({}, $scope.editedTodo);
+  $scope.editTodo = function (todo) {
+    $scope.editedTodo = todo;
+    // Clone the original todo to restore it on demand.
+    $scope.originalTodo = angular.extend({}, todo);
   };
 
-  $scope.doneEditing = function (id) {
+  $scope.doneEditing = function (todo) {
     $scope.editedTodo = null;
-    var title = $scope.todos[id].title.trim();
-    if (title) {
-      $scope.todos.$save(id);
-    } else {
-      $scope.removeTodo(id);
+    todo.title = todo.title.trim();
+
+    if (!todo.title) {
+      $scope.removeTodo(todo);
     }
+
+    todoStorage.put(todos);
   };
 
-  $scope.revertEditing = function (id) {
-    $scope.todos[id] = $scope.originalTodo;
-    $scope.doneEditing(id);
+  $scope.revertEditing = function (todo) {
+    todos[todos.indexOf(todo)] = $scope.originalTodo;
+    $scope.doneEditing($scope.originalTodo);
   };
 
-  $scope.removeTodo = function (id) {
-    $scope.todos.$remove(id);
+  $scope.removeTodo = function (todo) {
+    $scope.remainingCount -= todo.completed ? 0 : 1;
+    todos.splice(todos.indexOf(todo), 1);
+    todoStorage.put(todos);
   };
 
-  $scope.toggleCompleted = function (id) {
-    var todo = $scope.todos[id];
-    todo.completed = !todo.completed;
-    $scope.todos.$save(id);
+  $scope.todoCompleted = function (todo) {
+    $scope.remainingCount += todo.completed ? -1 : 1;
+    todoStorage.put(todos);
   };
 
   $scope.clearCompletedTodos = function () {
-    angular.forEach($scope.todos.$getIndex(), function (index) {
-      if ($scope.todos[index].completed) {
-        $scope.todos.$remove(index);
-      }
+    $scope.todos = todos = todos.filter(function (val) {
+      return !val.completed;
     });
+    todoStorage.put(todos);
   };
 
-  $scope.markAll = function (allCompleted) {
-    angular.forEach($scope.todos.$getIndex(), function (index) {
-      $scope.todos[index].completed = !allCompleted;
+  $scope.markAll = function (completed) {
+    todos.forEach(function (todo) {
+      todo.completed = !completed;
     });
-    $scope.todos.$save();
+    $scope.remainingCount = completed ? todos.length : 0;
+    todoStorage.put(todos);
   };
 });

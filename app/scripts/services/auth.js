@@ -26,8 +26,8 @@ app.factory('Auth', function ($firebaseAuth, FIREBASE_URL, $firebase, $rootScope
         email    : user.email
       };
 
-      var profileRef = $firebase(ref.child('profile'));
-      return profileRef.$set(user.uid, user);
+      var profileRef = $firebase(ref.child('users'));
+      return profileRef.$set(user.uid, profile);
     },
 
     login: function (user) {
@@ -42,6 +42,7 @@ app.factory('Auth', function ($firebaseAuth, FIREBASE_URL, $firebase, $rootScope
       $rootScope.authObj.$authAnonymously().then(function(authData) {
         console.log("Logged in as:", authData.uid);
         Auth.createProfile({
+          uid      : authData.uid,
           username : "Guest",
           email    : "guest@sn.com"
         });
@@ -61,19 +62,33 @@ app.factory('Auth', function ($firebaseAuth, FIREBASE_URL, $firebase, $rootScope
     },
 
     signedIn: function () {
-      return !!auth.$getAuth();
+      var authData = $rootScope.authObj.$getAuth();
+
+      if (authData) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     getActiveUser: function () {
-      return auth.$getAuth();
+      var authData = $rootScope.authObj.$getAuth();
+
+      if (authData) {
+        return authData;
+      } else {
+        return;
+      }
     }
   };
 
   $rootScope.authObj.$onAuth(function(authData) {
     if (authData) {
       console.log("Logged in as:", authData.uid);
+      $rootScope.CUid = authData.uid;
     } else {
       console.log("Logged out");
+      $rootScope.CUid = null;
       $location.path("/");
     }
   });
