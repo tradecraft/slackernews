@@ -18,7 +18,7 @@
         <td colspan="1"></td>
         <td class="subtext">
           <span class="score" id="score_8920007">{{ post.score }} points</span> by
-          <a href="#/users/{{ post.creatorUID }}">{{ post.creator }}</a> 41 minutes ago |
+          <a href="#/users/{{ post.creatorUID }}">{{ post.creator }}</a> {{ post.createdAt | ago }} |
           <a href="#/posts/{{ post.$id }}">{{ post.nComments }} comments</a>
         </td>
       </tr>
@@ -30,13 +30,6 @@
             <textarea ng-model="commentText" name="text" rows="6" cols="60" style="" placeholder=""></textarea>
             <br>
             <br>
-            <span class="subtext">If you haven't already, would you mind reading about SN's
-              <a href="#/welcome">
-                <u>approach to comments</u>
-              </a>?
-            </span>
-            <br>
-            <br>
             <input type="submit" value="add comment">
           </form>
         </td>
@@ -46,14 +39,14 @@
   <br>
   <br>
   <table border="0">
-    <tbody ng-repeat="comment in comments">
+    <tbody ng-repeat="comment in comments | filter:global.search">
       <tr>
         <td>
           <table border="0">
             <tbody>
               <tr>
                 <td>
-                  <img src="https://news.ycombinator.com/s.gif" height="1" width="0">
+                  <img src="images/s.gif" height="1" width="0">
                 </td>
                 <td valign="top">
                   <center>
@@ -66,9 +59,8 @@
                 <td class="default">
                   <div style="margin-top:2px; margin-bottom:-10px; ">
                     <span class="comhead">
-                      <a href="#/users/{{ post.creatorUID }}">{{ comment.creator }}</a> 33 minutes ago  |
-                      <a href="">link</a>
-                      <span ng-show="user.uid == post.creatorUID">
+                      <a href="#/users/{{ post.creatorUID }}">{{ comment.creator }}</a> {{ comment.createdAt | ago }}
+                      <span ng-show="user.uid == comment.creatorUID">
                         | <a ng-click="deleteComment(comment)" style="cursor: pointer;">delete</a>
                       </span>
                       <span class="deadmark"></span>

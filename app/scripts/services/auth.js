@@ -2,8 +2,7 @@
 
 app.factory('Auth', function ($firebaseAuth, FIREBASE_URL, $firebase, $rootScope, $location) {
   var ref  = new Firebase(FIREBASE_URL);
-  var auth = $firebaseAuth(ref);
-  $rootScope.authObj = auth;
+  $rootScope.authObj = $firebaseAuth(ref);
 
   var Auth = {
     register: function (user) {
@@ -54,11 +53,11 @@ app.factory('Auth', function ($firebaseAuth, FIREBASE_URL, $firebase, $rootScope
     },
 
     logout: function () {
-      auth.$unauth();
+      $rootScope.authObj.$unauth();
     },
 
     resolveUser: function () {
-      return auth.$waitForAuth();
+      return $rootScope.authObj.$waitForAuth();
     },
 
     signedIn: function () {

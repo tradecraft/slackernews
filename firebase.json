@@ -1,6 +1,5 @@
 {
   "firebase": "slacker-news",
-  "rules": "security-rules.json",
   "public": "dist",
   "ignore": [
     "firebase.json",

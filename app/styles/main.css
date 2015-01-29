@@ -8,6 +8,10 @@ table {
   color: -webkit-text;
   text-align: start;
 }
+
+.pagetop a.nav.active {
+  color: #fff;
+}
 body {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 10pt;
@@ -46,7 +50,7 @@ a:link {
   text-decoration: none;
 }
 a:visited {
-  color: #828282;
+  color: #000000;
   text-decoration: none;
 }
 .default {
@@ -147,12 +151,12 @@ pre:hover {
   height: 10px;
   border: 0px;
   margin: 3px 2px 6px;
-  background: url("https://news.ycombinator.com/grayarrow.gif") no-repeat;
+  background: url("/images/grayarrow.gif") no-repeat;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
   .votearrow {
-    background-size: 10px; background-image: url("https://news.ycombinator.com/grayarrow2x.gif"); }
+    background-size: 10px; background-image: url("/images/grayarrow2x.gif"); }
   }
   .rotate180 {
     -webkit-transform: rotate(180deg);

@@ -30,6 +30,16 @@ var app = angular
         controller: 'PostsCtrl'
       })
 
+      .when('/newest', {
+        templateUrl: 'views/newest.html',
+        controller: 'PostsCtrl'
+      })
+
+      .when('/comments', {
+        templateUrl: 'views/comments.html',
+        controller: 'CommentsCtrl'
+      })
+
       .when('/posts/:postId', {
         templateUrl: 'views/showpost.html',
         controller: 'PostViewCtrl'
@@ -70,4 +80,5 @@ var app = angular
       });
   })
 
-  .constant('FIREBASE_URL', 'https://slacker-news.firebaseio.com/');
+  .constant('FIREBASE_URL', 'https://slacker-news.firebaseio.com/')
+  .constant("moment", moment);

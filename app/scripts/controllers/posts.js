@@ -5,7 +5,7 @@ app.controller('PostsCtrl', function ($scope, $location, $firebase, FIREBASE_URL
 
   $scope.posts = Post.all;
   $scope.votes = Vote.all;
-  $scope.user  = Auth.user;
+  $scope.user  = Auth.getActiveUser();
   $scope.post  = {url: 'http://', title: ''};
 
   $scope.deletePost = function (post) {
@@ -19,6 +19,10 @@ app.controller('PostsCtrl', function ($scope, $location, $firebase, FIREBASE_URL
 
   $scope.voted = function (post) {
     return Vote.exists(post);
+  };
+
+  $scope.query = function () {
+    return $('footer.input').val();
   };
 
 });
