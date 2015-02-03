@@ -2,10 +2,11 @@
   "name": "slackernews",
   "version": "0.0.0",
   "dependencies": {
+    "express": "^4.11.2",
+    "gzippo": "^0.2.0",
     "moment": "^2.9.0",
     "mongoose": "^3.8.21",
-    "grunt": "^0.4.1",
-    "grunt-cli": ">=0.1.11"
+    "morgan": "^1.5.1"
   },
   "devDependencies": {
     "grunt": "^0.4.1",
@@ -42,7 +43,6 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test",
-    "postinstall": "echo postinstall time; ./node_modules/grunt-cli/bin/grunt serve"
+    "test": "grunt test"
   }
 }
