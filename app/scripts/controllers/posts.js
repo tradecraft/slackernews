@@ -13,8 +13,10 @@ app.controller('PostsCtrl', function ($scope, $location, $firebase, FIREBASE_URL
   };
 
   $scope.upVote = function (post) {
-    Vote.create(post);
-    $('a.' + post.$id).hide();
+    if ($scope.user) {
+      Vote.create(post);
+      $('a.' + post.$id).hide();
+    }
   };
 
   $scope.voted = function (post) {
